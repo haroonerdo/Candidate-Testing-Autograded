@@ -3,29 +3,46 @@ const input = require('readline-sync');
 // TODO 2: modify your quiz app to ask 5 questions //
 
 // TODO 1.1a: Define candidateName // 
-let candidateName;
-// TODO 1.2a: Define question, correctAnswer, and candidateAnswer //
-let question;
-let correctAnswer;
-let candidateAnswer;
+let candidateName = "";
 
+// TODO 1.2a: Define question, correctAnswer, and candidateAnswer //
+let question = "Who was the first American woman in space? ";
+let correctAnswer = "Sally Ride";
+let candidateAnswer = "";
 
 //TODO: Variables for Part 2
-let questions;
-let correctAnswers;
-let candidateAnswers;
-
+let questions=["Who was the first American woman in space? ",
+              "True or false: 5 kilometer == 5000 meters? ",
+              "(5 + 3)/2 * 10 = ?",
+              "Given the array [8, 'Orbit', 'Trajectory', 45], what entry is at index 2? ",
+              "What is the minimum crew size for the ISS? "];
+let correctAnswers=["Sally Ride",
+                    "true",
+                    "40",
+                    "Trajecorty",
+                    3];
+let candidateAnswers=[];
 
 function askForName() {
   // TODO 1.1b: Ask for candidate's name //
+  candidateName=input.question("Candidate Name: ")
+
+  
 
 }
 
 function askQuestion() {
   // TODO 1.2b: Ask candidate the question and assign the response as candidateAnswer //
 
-
+  let i=0
+for(i=0; i<questions.length;i++){
+  candidateAnswer.push(input.question(`
+    ${i + 1}) ${questions[i]}
+  Your answer: `))
+  console.log(`Correct answer: ${correctAnswers[i]}`)
 }
+}
+
 
 function gradeQuiz(candidateAnswers) {
 
@@ -34,7 +51,25 @@ function gradeQuiz(candidateAnswers) {
 
 
   let grade;  //TODO 3.2 use this variable to calculate the candidates score.
+let numberCorrectAnswer=0
+let numberQuizQuestion=5
+let status;
 
+for(let i=0; i<numberQuizQuestion;i++){
+  if (candidateAnswers[i].toUpperCase()===correctAnswers[i].toUpperCase()){
+    numberCorrectAnswer++;
+  }
+}
+grade=(numberCorrectAnswer/numberQuizQuestion)*100;
+
+if(grade>=80){
+  status="PASSED"
+}else{
+  status="FAILED"
+}
+console.log(`
+Your grade:  ${grade} (${numberCorrectAnswer} of ${numberQuizQuestion}) responses correct answer
+Status : ${status}`)
 
   return grade;
 }
@@ -42,10 +77,11 @@ function gradeQuiz(candidateAnswers) {
 function runProgram() {
   askForName();
   // TODO 1.1c: Greet candidate using their name //
-   console.log();
+   console.log("Hello, "+candidateName+" !");
   askQuestion();
   gradeQuiz(this.candidateAnswers);
 }
+
 
 // ----------- Don't write any code or change any code below this line ---------- //
 module.exports = {
